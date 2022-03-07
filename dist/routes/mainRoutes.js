@@ -1,0 +1,22 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = __importDefault(require("express"));
+const authRoutes_1 = __importDefault(require("routes/authRoutes"));
+const postRoutes_1 = __importDefault(require("routes/postRoutes"));
+const userRoutes_1 = __importDefault(require("routes/userRoutes"));
+const banTypeRouter_1 = __importDefault(require("./banTypeRouter"));
+const carBrandRoutes_1 = __importDefault(require("./carBrandRoutes"));
+const carModelRoutes_1 = __importDefault(require("./carModelRoutes"));
+const gearBoxTypeRoutes_1 = __importDefault(require("./gearBoxTypeRoutes"));
+const mainRoutes = express_1.default.Router();
+mainRoutes.use("/auth", authRoutes_1.default);
+mainRoutes.use("/user", userRoutes_1.default);
+mainRoutes.use("/carBrand", carBrandRoutes_1.default);
+mainRoutes.use('/carModel', carModelRoutes_1.default);
+mainRoutes.use('/banType', banTypeRouter_1.default);
+mainRoutes.use('/gearBoxType', gearBoxTypeRoutes_1.default);
+mainRoutes.use("/post", postRoutes_1.default);
+exports.default = mainRoutes;
