@@ -21,7 +21,6 @@
     "@types/redis": "^4.0.11",
     "@typescript-eslint/eslint-plugin": "^5.7.0",
     "@typescript-eslint/parser": "^5.7.0",
-    "dotenv": "^10.0.0",
     "eslint": "^8.4.1",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^8.3.0",
@@ -30,12 +29,13 @@
     "morgan": "^1.10.0",
     "nodemon": "^2.0.15",
     "prettier": "^2.5.1",
-    "prisma": "^3.10.0",
-    "typescript": "^4.6.2"
+    "prisma": "^3.10.0"
   },
   "dependencies": {
     "@prisma/client": "^3.10.0",
+    "dotenv": "^10.0.0",
     "ts-node": "^10.7.0",
+    "typescript": "^4.6.2",
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
     "eslint-import-resolver-typescript": "^2.5.0",
