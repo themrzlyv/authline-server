@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "target": "es6",
-    "lib": ["ESNext", "DOM"],
+    "target": "es5",
+    "lib": ["ESNext", "DOM", "ES5"],
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
 

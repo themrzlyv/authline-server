@@ -2,7 +2,6 @@
   "name": "server-app",
   "version": "1.0.0",
   "description": "",
-  "type": "module",
   "main": "dist/app.js",
   "scripts": {
     "start": "node -r tsconfig-paths/register -r ts-node ./dist/app.js",
