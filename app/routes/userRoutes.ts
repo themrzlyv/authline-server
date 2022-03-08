@@ -1,6 +1,6 @@
-import { getUser, updateUser } from 'controllers/user.controller';
+import { getUser, updateUser } from '@app/controllers/user.controller';
+import { accessUser } from '@app/middlewares/accessUser';
 import express, { Router } from 'express';
-import { accessUser } from 'middlewares/accessUser';
 
 const userRouter: Router = express.Router();
 

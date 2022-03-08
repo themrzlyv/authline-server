@@ -1,28 +1,28 @@
 {
   "compilerOptions": {
+    "target": "es6",
+    "lib": ["ESNext", "DOM"],
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
 
-    "target": "es6",                                     
-    "lib": ["ESNext","DOM"],                                        
-    "experimentalDecorators": true,                  
-    "emitDecoratorMetadata": true,                    
-
-    "module": "commonjs",                               
-    "rootDir": "./app",                               
-    "moduleResolution": "node",                      
-    "baseUrl": "./app",                                  
+    "module": "commonjs",
+    "rootDir": "./app",
+    "moduleResolution": "node",
+    "baseUrl": ".",
     "paths": {
+      "*": ["node_modules/*"],
       "@app/*": ["app/*"]
-    },                                      
-    "allowJs": true,                                  
-    "outDir": "./dist",                                  
-    "removeComments": true,                           
-    "esModuleInterop": true,                            
-    "forceConsistentCasingInFileNames": true,           
-    "strict": true,                                     
-    "noImplicitAny": true,                           
+    },
+    "allowJs": true,
+    "outDir": "./dist",
+    "removeComments": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitAny": true,
     "skipLibCheck": true,
-    "useUnknownInCatchVariables": false                            
+    "useUnknownInCatchVariables": false
   },
   "execlude": ["node_modules", "dist", "coverage"],
-  "include": ["app"],
+  "include": ["app"]
 }

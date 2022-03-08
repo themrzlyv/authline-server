@@ -13,8 +13,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.updateUser = exports.getUser = void 0;
-const ApiError_1 = __importDefault(require("middlewares/ApiError"));
-const config_1 = require("config/config");
+const ApiError_1 = __importDefault(require("../middlewares/ApiError"));
+const config_1 = require("../config/config");
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const getUser = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {

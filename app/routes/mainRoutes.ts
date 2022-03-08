@@ -1,12 +1,12 @@
 import express, { Router } from 'express';
-import adminRouter from 'routes/adminRoutes';
-import authRouter from 'routes/authRoutes';
-import postRouter from 'routes/postRoutes';
-import userRouter from 'routes/userRoutes';
+import authRouter from './authRoutes';
+
 import banTypeRouter from './banTypeRouter';
 import carBrandRouter from './carBrandRoutes';
 import carModelRouter from './carModelRoutes';
 import gearBoxTypeRouter from './gearBoxTypeRoutes';
+import postRouter from './postRoutes';
+import userRouter from './userRoutes';
 
 const mainRoutes: Router = express.Router();
 

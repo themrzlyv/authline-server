@@ -12,8 +12,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const config_1 = require("config/config");
-const ApiError_1 = __importDefault(require("middlewares/ApiError"));
+const config_1 = require("../config/config");
+const ApiError_1 = __importDefault(require("../middlewares/ApiError"));
 class CarBrand {
     static allBrands(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {

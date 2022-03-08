@@ -1,7 +1,7 @@
-import { getAllUsers } from 'controllers/admin.controller';
+import { getAllUsers } from '@app/controllers/admin.controller';
+import { accessAdmin } from '@app/middlewares/accessAdmin';
+import { accessUser } from '@app/middlewares/accessUser';
 import express, { Router } from 'express';
-import { accessAdmin } from 'middlewares/accessAdmin';
-import { accessUser } from 'middlewares/accessUser';
 
 const adminRouter: Router = express.Router();
 

@@ -1,5 +1,5 @@
-import { iUser } from 'services/@types';
-import { validateEmail } from 'services/utils/functions';
+import { iUser } from '@app/services/@types';
+import { validateEmail } from '@app/services/utils/functions';
 
 export const regValidator = ({ name, email, password }: iUser) => {
   if (!name || !email || !password) return 'Please fill all inputs';

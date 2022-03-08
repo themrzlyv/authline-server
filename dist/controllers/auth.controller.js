@@ -13,11 +13,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.logoutUser = exports.loginUser = exports.registrationUser = void 0;
-const config_1 = require("config/config");
 const bcrypt_1 = __importDefault(require("bcrypt"));
-const validator_1 = require("services/helpers/validator");
-const generateJwt_1 = require("services/helpers/generateJwt");
-const ApiError_1 = __importDefault(require("middlewares/ApiError"));
+const validator_1 = require("../services/helpers/validator");
+const generateJwt_1 = require("../services/helpers/generateJwt");
+const ApiError_1 = __importDefault(require("../middlewares/ApiError"));
+const config_1 = require("../config/config");
 const registrationUser = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { name, email, password, city, number, birthday } = req.body;

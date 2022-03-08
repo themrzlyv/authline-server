@@ -1,7 +1,7 @@
-import GearBoxType from 'controllers/gearBoxType.controller';
+import GearBoxType from '@app/controllers/gearBoxType.controller';
+import { accessAdmin } from '@app/middlewares/accessAdmin';
+import { accessUser } from '@app/middlewares/accessUser';
 import express, { Router } from 'express';
-import { accessAdmin } from 'middlewares/accessAdmin';
-import { accessUser } from 'middlewares/accessUser';
 
 const gearBoxTypeRouter: Router = express.Router();
 

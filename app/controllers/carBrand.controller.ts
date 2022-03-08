@@ -1,6 +1,6 @@
-import { prisma } from 'config/config';
+import { prisma } from '@app/config/config';
 import { NextFunction, Request, Response } from 'express';
-import ApiError from 'middlewares/ApiError';
+import ApiError from '@app/middlewares/ApiError';
 
 export default class CarBrand {
   public static async allBrands(req: Request, res: Response, next: NextFunction) {

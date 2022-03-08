@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.loginValidator = exports.regValidator = void 0;
-const functions_1 = require("services/utils/functions");
+const functions_1 = require("../utils/functions");
 const regValidator = ({ name, email, password }) => {
     if (!name || !email || !password)
         return 'Please fill all inputs';

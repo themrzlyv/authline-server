@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getAllUsers = void 0;
-const config_1 = require("config/config");
+const config_1 = require("../config/config");
 const getAllUsers = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const usersInDb = yield config_1.prisma.user.findMany({

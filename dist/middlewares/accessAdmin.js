@@ -13,7 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.accessAdmin = void 0;
-const ApiError_1 = __importDefault(require("middlewares/ApiError"));
+const ApiError_1 = __importDefault(require("./ApiError"));
 const accessAdmin = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
     try {

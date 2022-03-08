@@ -1,10 +1,10 @@
-import { prisma } from 'config/config';
 import { NextFunction, Request, Response } from 'express';
 import bcrypt from 'bcrypt';
-import { loginValidator, regValidator } from 'services/helpers/validator';
-import { generateJwt } from 'services/helpers/generateJwt';
-import ApiError from 'middlewares/ApiError';
-import { iReqAuth, iUser } from 'services/@types';
+import { loginValidator, regValidator } from '@app/services/helpers/validator';
+import { generateJwt } from '@app/services/helpers/generateJwt';
+import ApiError from '@app/middlewares/ApiError';
+import { iReqAuth, iUser } from '@app/services/@types';
+import { prisma } from '@app/config/config';
 
 export const registrationUser = async (req: Request, res: Response, next: NextFunction) => {
   try {

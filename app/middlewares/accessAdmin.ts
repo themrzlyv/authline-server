@@ -1,6 +1,6 @@
 import { Response, NextFunction } from 'express';
-import ApiError from 'middlewares/ApiError';
-import { iReqAuth } from 'services/@types';
+import ApiError from '@app/middlewares/ApiError';
+import { iReqAuth } from '@app/services/@types';
 
 export const accessAdmin = async (req: iReqAuth, res: Response, next: NextFunction) => {
   try {

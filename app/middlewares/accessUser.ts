@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
-import ApiError from 'middlewares/ApiError';
+import ApiError from '@app/middlewares/ApiError';
 import jwt from 'jsonwebtoken';
-import { IDecodedToken, iReqAuth } from 'services/@types';
-import { prisma } from 'config/config';
+import { IDecodedToken, iReqAuth } from '@app/services/@types';
+import { prisma } from '@app/config/config';
 
 export const accessUser = async (req: iReqAuth, res: Response, next: NextFunction) => {
   try {

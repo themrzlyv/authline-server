@@ -3,9 +3,9 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import morgan from 'morgan';
 
-import mainRoutes from 'routes/mainRoutes';
-import errorHandler from 'middlewares/errorHandler';
-import { prismaConnect } from 'config/config';
+import { prismaConnect } from './config/config';
+import mainRoutes from './routes/mainRoutes';
+import errorHandler from './middlewares/errorHandler';
 
 dotenv.config();
 

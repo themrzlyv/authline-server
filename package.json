@@ -2,11 +2,12 @@
   "name": "server-app",
   "version": "1.0.0",
   "description": "",
+  "type": "module",
   "main": "dist/app.js",
   "scripts": {
-    "start": "node -r ts-node/register/transpile-only -r tsconfig-paths/register ./dist/app.js",
+    "start": "node -r tsconfig-paths/register -r ts-node ./dist/app.js",
     "dev": "nodemon",
-    "build": "tsc -p ."
+    "build": "tsc --project tsconfig.json && tscpaths -p tsconfig.json -s ./app -o ./dist"
   },
   "keywords": [],
   "author": "",
@@ -28,19 +29,20 @@
     "eslint-plugin-prettier": "^4.0.0",
     "nodemon": "^2.0.15",
     "prettier": "^2.5.1",
-    "prisma": "^3.10.0"
+    "prisma": "^3.10.0",
+    "tscpaths": "^0.0.9"
   },
   "dependencies": {
-    "morgan": "^1.10.0",
     "@prisma/client": "^3.10.0",
-    "dotenv": "^10.0.0",
-    "ts-node": "^10.7.0",
-    "typescript": "^4.6.2",
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
     "eslint-import-resolver-typescript": "^2.5.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
-    "tsconfig-paths": "^3.12.0"
+    "morgan": "^1.10.0",
+    "ts-node": "^10.7.0",
+    "tsconfig-paths": "^3.13.0",
+    "typescript": "^4.6.2"
   }
 }

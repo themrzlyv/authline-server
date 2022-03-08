@@ -4,13 +4,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const authRoutes_1 = __importDefault(require("routes/authRoutes"));
-const postRoutes_1 = __importDefault(require("routes/postRoutes"));
-const userRoutes_1 = __importDefault(require("routes/userRoutes"));
+const authRoutes_1 = __importDefault(require("./authRoutes"));
 const banTypeRouter_1 = __importDefault(require("./banTypeRouter"));
 const carBrandRoutes_1 = __importDefault(require("./carBrandRoutes"));
 const carModelRoutes_1 = __importDefault(require("./carModelRoutes"));
 const gearBoxTypeRoutes_1 = __importDefault(require("./gearBoxTypeRoutes"));
+const postRoutes_1 = __importDefault(require("./postRoutes"));
+const userRoutes_1 = __importDefault(require("./userRoutes"));
 const mainRoutes = express_1.default.Router();
 mainRoutes.use("/auth", authRoutes_1.default);
 mainRoutes.use("/user", userRoutes_1.default);

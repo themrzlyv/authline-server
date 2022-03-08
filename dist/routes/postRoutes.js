@@ -3,9 +3,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const post_controller_1 = __importDefault(require("controllers/post.controller"));
+const post_controller_1 = __importDefault(require("../controllers/post.controller"));
+const accessUser_1 = require("../middlewares/accessUser");
 const express_1 = __importDefault(require("express"));
-const accessUser_1 = require("middlewares/accessUser");
 const postRouter = express_1.default.Router();
 postRouter.get("/", post_controller_1.default.allPosts);
 postRouter.get("/:id", post_controller_1.default.singlePost);

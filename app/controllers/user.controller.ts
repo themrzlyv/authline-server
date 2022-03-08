@@ -1,7 +1,7 @@
 import { NextFunction, Response } from 'express';
-import ApiError from 'middlewares/ApiError';
-import { iReqAuth } from 'services/@types';
-import { prisma } from 'config/config';
+import ApiError from '@app/middlewares/ApiError';
+import { iReqAuth } from '@app/services/@types';
+import { prisma } from '@app/config/config';
 import bcrypt from 'bcrypt';
 
 export const getUser = async (req: iReqAuth, res: Response, next: NextFunction) => {

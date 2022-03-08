@@ -1,6 +1,6 @@
-import Post from 'controllers/post.controller';
+import Post from '@app/controllers/post.controller';
+import { accessUser } from '@app/middlewares/accessUser';
 import express, { Router } from 'express';
-import { accessUser } from 'middlewares/accessUser';
 
 const postRouter:Router = express.Router();
 

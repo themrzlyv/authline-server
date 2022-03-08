@@ -1,7 +1,7 @@
-import CarModel from 'controllers/carModel.controller';
+import CarModel from '@app/controllers/carModel.controller';
+import { accessAdmin } from '@app/middlewares/accessAdmin';
+import { accessUser } from '@app/middlewares/accessUser';
 import express, { Router } from 'express';
-import { accessAdmin } from 'middlewares/accessAdmin';
-import { accessUser } from 'middlewares/accessUser';
 
 const carModelRouter: Router = express.Router();
 

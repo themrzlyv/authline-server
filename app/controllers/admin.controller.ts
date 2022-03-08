@@ -1,6 +1,6 @@
-import { prisma } from 'config/config';
+import { prisma } from '@app/config/config';
+import { iReqAuth } from '@app/services/@types';
 import { NextFunction, Response } from 'express';
-import { iReqAuth } from 'services/@types';
 
 export const getAllUsers = async (req: iReqAuth, res: Response, next: NextFunction) => {
   try {

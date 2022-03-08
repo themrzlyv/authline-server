@@ -16,9 +16,9 @@ const express_1 = __importDefault(require("express"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const cors_1 = __importDefault(require("cors"));
 const morgan_1 = __importDefault(require("morgan"));
-const mainRoutes_1 = __importDefault(require("routes/mainRoutes"));
-const errorHandler_1 = __importDefault(require("middlewares/errorHandler"));
-const config_1 = require("config/config");
+const config_1 = require("./config/config");
+const mainRoutes_1 = __importDefault(require("./routes/mainRoutes"));
+const errorHandler_1 = __importDefault(require("./middlewares/errorHandler"));
 dotenv_1.default.config();
 (0, config_1.prismaConnect)()
     .then(() => console.log('Prisma connection is successful'))

@@ -1,7 +1,7 @@
-import CarBrand from 'controllers/carBrand.controller';
+import CarBrand from '@app/controllers/carBrand.controller';
+import { accessAdmin } from '@app/middlewares/accessAdmin';
+import { accessUser } from '@app/middlewares/accessUser';
 import express, { Router } from 'express';
-import { accessAdmin } from 'middlewares/accessAdmin';
-import { accessUser } from 'middlewares/accessUser';
 
 const carBrandRouter: Router = express.Router();
 
