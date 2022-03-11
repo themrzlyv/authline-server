@@ -1,10 +1,10 @@
-import { ErrorRequestHandler, NextFunction, Request, Response } from 'express';
-import bcrypt from 'bcrypt';
-import { loginValidator, regValidator } from '@app/services/helpers/validator';
-import { generateJwt } from '@app/services/helpers/generateJwt';
+import { prisma } from '@app/config/config';
 import ApiError from '@app/middlewares/ApiError';
 import { iReqAuth, iUser } from '@app/services/@types';
-import { prisma } from '@app/config/config';
+import { generateJwt } from '@app/services/helpers/generateJwt';
+import { loginValidator, regValidator } from '@app/services/helpers/validator';
+import bcrypt from 'bcrypt';
+import { NextFunction, Request, Response } from 'express';
 
 export const registrationUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -55,12 +55,7 @@ export const registrationUser = async (req: Request, res: Response, next: NextFu
   }
 };
 
-export const loginUser = async (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-  error: ErrorRequestHandler,
-) => {
+export const loginUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { email, password } = req.body;
 
@@ -78,8 +73,7 @@ export const loginUser = async (
 
     // control user password
     const isMatch: boolean = await bcrypt.compare(password, user.password);
-    if (!isMatch) return next({ status: 400, message: 'Wrong password' });
-    // if (!isMatch) return next(ApiError.badRequest(400, 'Password is not valid'));
+    if (!isMatch) return next(ApiError.badRequest(400, 'Password is not valid'));
 
     const token = generateJwt(user);
     res.status(200).json({
