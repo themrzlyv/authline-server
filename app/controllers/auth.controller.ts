@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from 'express';
+import { ErrorRequestHandler, NextFunction, Request, Response } from 'express';
 import bcrypt from 'bcrypt';
 import { loginValidator, regValidator } from '@app/services/helpers/validator';
 import { generateJwt } from '@app/services/helpers/generateJwt';
@@ -55,7 +55,12 @@ export const registrationUser = async (req: Request, res: Response, next: NextFu
   }
 };
 
-export const loginUser = async (req: Request, res: Response, next: NextFunction) => {
+export const loginUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+  error: ErrorRequestHandler,
+) => {
   try {
     const { email, password } = req.body;
 
@@ -73,7 +78,8 @@ export const loginUser = async (req: Request, res: Response, next: NextFunction)
 
     // control user password
     const isMatch: boolean = await bcrypt.compare(password, user.password);
-    if (!isMatch) return next(ApiError.badRequest(400, 'Password is not valid'));
+    if (!isMatch) return next({ status: 400, message: 'Wrong password' });
+    // if (!isMatch) return next(ApiError.badRequest(400, 'Password is not valid'));
 
     const token = generateJwt(user);
     res.status(200).json({
