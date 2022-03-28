@@ -5,10 +5,21 @@ import ApiError from '@app/middlewares/ApiError';
 export default class CarBrand {
   public static async allBrands(req: Request, res: Response, next: NextFunction) {
     try {
+      const { page, size } = req.query;
+
+      // Pagination
+      // take variable for take number of items
+      // skip variable for skip number of items
+      const take = size ? parseInt(size.toString(), 10) : 10;
+      const skip = page ? (parseInt(page.toString(), 10) - 1) * take : 0;
+
       const carBrands = await prisma.carBrand.findMany({
         orderBy: [{ brandName: 'asc' }],
+        take: size ? take : undefined,
+        skip: page ? skip : undefined,
       });
-      res.status(200).json({ length: carBrands.length, carBrands });
+      const pages = size ? Math.ceil(await prisma.carBrand.count() / take) : 1;
+      res.status(200).json({ total: carBrands.length, pages, carBrands });
     } catch (error) {
       next(error);
     }
