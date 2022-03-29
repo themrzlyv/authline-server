@@ -35,7 +35,7 @@ export default class Post {
 
   public static async createPost(req: Request, res: Response, next: NextFunction) {
     try {
-      const { title, content, userId, carBrandId, carModelId, gearBoxTypesId, banTypesId } =
+      const { title, content, userId, carBrandId, carModelId, gearBoxTypesId, banTypesId, images } =
         req.body;
       if (!title || !content || !carBrandId || !carModelId || !gearBoxTypesId || !banTypesId) {
         return next(ApiError.badRequest(400, 'Please fill all inputs!'));
@@ -44,6 +44,7 @@ export default class Post {
         data: {
           title,
           content,
+          images: images ?? [],
           userId,
           carBrandId,
           carModelId,

@@ -16,6 +16,7 @@ model User {
   city      String
   number    String
   birthday  String
+  photo     String
   posts     Post[]
   role      Role     @default(User)
   createdAt DateTime @default(now())
@@ -24,6 +25,7 @@ model User {
 model CarBrand {
   id        String     @id @default(auto()) @map("_id") @db.ObjectId
   brandName String     @unique
+  image     String
   models    CarModel[]
   posts     Post[]
 }
@@ -52,6 +54,7 @@ model Post {
   id             String       @id @default(auto()) @map("_id") @db.ObjectId
   title          String
   content        String
+  images         String[]
   author         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
   carBrand       CarBrand     @relation(fields: [carBrandId], references: [id], onDelete: Cascade)
   carModel       CarModel     @relation(fields: [carModelId], references: [id], onDelete: Cascade)

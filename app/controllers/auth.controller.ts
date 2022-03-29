@@ -8,7 +8,7 @@ import { NextFunction, Request, Response } from 'express';
 
 export const registrationUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { name, email, password, city, number, birthday } = req.body;
+    const { name, email, password, city, number, birthday, photo } = req.body;
 
     // validation request's data
     const error = regValidator({ ...req.body });
@@ -28,6 +28,9 @@ export const registrationUser = async (req: Request, res: Response, next: NextFu
         city,
         number,
         birthday,
+        photo:
+          photo ??
+          'https://res.cloudinary.com/themrzlyv/image/upload/v1648555054/Authline-media/default_user.png',
       },
     });
 
@@ -41,6 +44,7 @@ export const registrationUser = async (req: Request, res: Response, next: NextFu
         city: true,
         number: true,
         birthday: true,
+        photo: true,
         posts: true,
         role: true,
         createdAt: true,
@@ -85,6 +89,7 @@ export const loginUser = async (req: Request, res: Response, next: NextFunction)
         city: user.city,
         number: user.number,
         birthday: user.birthday,
+        photo: user.photo,
         posts: user.posts,
         role: user.role,
         createdAt: user.createdAt,

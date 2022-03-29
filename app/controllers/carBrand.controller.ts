@@ -42,13 +42,14 @@ export default class CarBrand {
 
   public static async createBrand(req: Request, res: Response, next: NextFunction) {
     try {
-      const { brandName } = req.body;
+      const { brandName, image } = req.body;
       if (!brandName) return next(ApiError.badRequest(400, 'Please fill all inputs!'));
       const existBrand = await prisma.carBrand.findUnique({ where: { brandName } });
       if (existBrand) return next(ApiError.badRequest(400, 'This brand already exists!'));
       await prisma.carBrand.create({
         data: {
           brandName,
+          image,
         },
       });
       res.status(201).json({ message: 'New brand was created!' });
