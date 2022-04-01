@@ -113,7 +113,7 @@ export const loginUser = async (req: Request, res: Response, next: NextFunction)
       domain: 'localhost:3000',
       path: '/v1/auth/refreshToken',
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7d
-      secure: process.env.NODE_ENV === 'development' ? false : true,
+      secure: false //process.env.NODE_ENV === 'development' ? false : true,
     });
 
     res.status(200).json({
