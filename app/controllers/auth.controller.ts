@@ -74,15 +74,15 @@ export const registrationUser = async (req: Request, res: Response, next: NextFu
 
 export const refreshToken = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const refreshToken = req.cookies?.refreshToken;
+    const { refreshToken } = req.cookies;
     console.log(refreshToken);
     if (!refreshToken) return res.status(400).json({ msg: 'Please Login or Register' });
 
     const accessToken = verifyRefreshToken(refreshToken);
 
     res.json({ accessToken });
-  } catch (err) {
-    return res.status(500).json({ msg: err.message });
+  } catch (error) {
+    next(error);
   }
 };
 
