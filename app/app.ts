@@ -2,6 +2,7 @@ import express, { Application } from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import morgan from 'morgan';
+import cookieParser from 'cookie-parser';
 
 import { prismaConnect } from './config/config';
 import mainRoutes from './routes/mainRoutes';
@@ -18,6 +19,7 @@ const startServer = async (): Promise<void> => {
   const app: Application = express();
 
   // middlewares
+  app.use(cookieParser());
   app.use(cors());
   app.use(express.json());
   app.use(express.urlencoded({ extended: false }));

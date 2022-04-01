@@ -1,7 +1,11 @@
 import { prisma } from '@app/config/config';
 import ApiError from '@app/middlewares/ApiError';
 import { iReqAuth, iUser } from '@app/services/@types';
-import { generateJwt } from '@app/services/helpers/generateJwt';
+import {
+  createAccessToken,
+  createRefreshToken,
+  verifyRefreshToken,
+} from '@app/services/helpers/generateJwt';
 import { loginValidator, regValidator } from '@app/services/helpers/validator';
 import bcrypt from 'bcrypt';
 import { NextFunction, Request, Response } from 'express';
@@ -52,10 +56,33 @@ export const registrationUser = async (req: Request, res: Response, next: NextFu
     });
     if (!user) return next(ApiError.badRequest(400, 'Something went wrong!'));
 
-    const token = generateJwt(user);
-    return res.status(201).json({ token, user });
+    const accessToken = createAccessToken(user);
+    const refreshToken = createRefreshToken(user);
+
+    res.cookie('refreshToken', refreshToken, {
+      httpOnly: true,
+      path: '/v1/auth/refreshToken',
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7d
+      secure: process.env.NODE_ENV === 'development' ? false : true,
+    });
+
+    return res.status(201).json({ accessToken, user });
   } catch (error) {
     next(error);
+  }
+};
+
+export const refreshToken = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { refreshToken } = req.cookies;
+    console.log(refreshToken);
+    if (!refreshToken) return res.status(400).json({ msg: 'Please Login or Register' });
+
+    const accessToken = verifyRefreshToken(refreshToken);
+
+    res.json({ accessToken });
+  } catch (err) {
+    return res.status(500).json({ msg: err.message });
   }
 };
 
@@ -79,9 +106,18 @@ export const loginUser = async (req: Request, res: Response, next: NextFunction)
     const isMatch: boolean = await bcrypt.compare(password, user.password);
     if (!isMatch) return next(ApiError.badRequest(400, 'Password is not valid'));
 
-    const token = generateJwt(user);
+    const accessToken = createAccessToken(user);
+    const refreshToken = createRefreshToken(user);
+
+    res.cookie('refreshToken', refreshToken, {
+      httpOnly: true,
+      path: '/v1/auth/refreshToken',
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7d
+      secure: process.env.NODE_ENV === 'development' ? false : true,
+    });
+
     res.status(200).json({
-      token,
+      accessToken,
       user: {
         id: user.id,
         name: user.name,
