@@ -20,6 +20,7 @@ const startServer = async (): Promise<void> => {
 
   // middlewares
   app.use(cookieParser());
+  app.set('trust proxy', 1);
   app.use(cors({ origin: true, credentials: true }));
   app.use(express.json());
   app.use(express.urlencoded({ extended: false }));
