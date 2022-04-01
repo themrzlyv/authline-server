@@ -109,7 +109,7 @@ export const loginUser = async (req: Request, res: Response, next: NextFunction)
     const refreshToken = createRefreshToken(user);
 
     res.cookie('refreshToken', refreshToken, {
-      httpOnly: false,
+      httpOnly: true,
       path: '/v1/auth/refreshToken',
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7d
       // secure: process.env.NODE_ENV === 'development' ? false : true,
