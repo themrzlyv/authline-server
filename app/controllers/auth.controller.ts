@@ -75,7 +75,6 @@ export const registrationUser = async (req: Request, res: Response, next: NextFu
 export const refreshToken = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { refreshToken } = req.cookies;
-    console.log(refreshToken);
     if (!refreshToken) return res.status(400).json({ msg: 'Please Login or Register' });
 
     const accessToken = verifyRefreshToken(refreshToken);
@@ -113,7 +112,7 @@ export const loginUser = async (req: Request, res: Response, next: NextFunction)
       httpOnly: true,
       path: '/v1/auth/refreshToken',
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7d
-      secure: process.env.NODE_ENV === 'development' ? false : true,
+      // secure: process.env.NODE_ENV === 'development' ? false : true,
     });
 
     res.status(200).json({
