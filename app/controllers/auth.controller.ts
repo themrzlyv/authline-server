@@ -109,6 +109,8 @@ export const loginUser = async (req: Request, res: Response, next: NextFunction)
     const accessToken = createAccessToken(user);
     const refreshToken = createRefreshToken(user);
 
+    res.cookie('omg', 'omg');
+
     res.cookie('refreshToken', refreshToken, {
       httpOnly: true,
       path: '/',
