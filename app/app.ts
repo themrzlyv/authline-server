@@ -19,9 +19,11 @@ const startServer = async (): Promise<void> => {
   const app: Application = express();
 
   // middlewares
-  app.use(cookieParser());
+  app.use(
+    cookieParser(),
+  );
   app.set('trust proxy', 1);
-  app.use(cors());
+  app.use(cors({ origin: true, credentials: true }));
   app.use(express.json());
   app.use(express.urlencoded({ extended: false }));
 
@@ -29,6 +31,13 @@ const startServer = async (): Promise<void> => {
     app.use(morgan('tiny'));
     console.log('Morgan logger is activated');
   }
+
+  app.all('*', function (req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With');
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+    next();
+  });
 
   // routes
   app.use('/v1', mainRoutes);
