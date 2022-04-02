@@ -22,10 +22,7 @@ const startServer = async (): Promise<void> => {
   app.use(cookieParser());
   app.use(
     cors({
-      origin:
-        process.env.NODE_ENV === 'development'
-          ? 'http://localhost:3000'
-          : 'https://authline.herokuapp.com',
+      origin: true,
       credentials: true,
     }),
   );
