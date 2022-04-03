@@ -17,6 +17,8 @@ prismaConnect()
 
 const startServer = async (): Promise<void> => {
   const app: Application = express();
+  app.set('trust proxy', 1);
+
 
   // middlewares
   app.use(
@@ -28,7 +30,6 @@ const startServer = async (): Promise<void> => {
   app.use(cookieParser());
   app.use(express.json());
   app.use(express.urlencoded({ extended: false }));
-  // app.set('trust proxy', 2);
 
   if (process.env.NODE_ENV === 'development') {
     app.use(morgan('tiny'));
