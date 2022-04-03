@@ -80,9 +80,9 @@ export const refreshToken = async (req: Request, res: Response, next: NextFuncti
     if (!refreshToken) return next(ApiError.badRequest(401, 'Please login or register!'));
 
     const { accessToken, error } = verifyRefreshToken(String(refreshToken));
-    if(error !== null) return next(ApiError.badRequest(401, error));
+    if(error !== null) return next(ApiError.badRequest(401, String(process.env.REFRESH_TOKEN_SECRET)));
 
-    return res.status(201).json({ accessToken, reft: process.env.REFRESH_TOKEN_SECRET });
+    return res.status(201).json({ accessToken });
   } catch (error) {
     next(error);
   }
