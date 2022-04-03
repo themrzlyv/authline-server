@@ -125,7 +125,7 @@ export const loginUser = async (req: Request, res: Response, next: NextFunction)
       httpOnly: true,
       path: '/',
       sameSite: process.env.NODE_ENV === 'development' ? false : 'none',
-      maxAge: 7 * 24 * 60 * 60 * 1000, // 7d
+      maxAge: 7 * 24 * 60 * 60 * 10000, // 7d
       domain: process.env.NODE_ENV === 'development' ? 'localhost' : '*.herokuapp.com',
       secure: process.env.NODE_ENV === 'development' ? false : true,
     });
