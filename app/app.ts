@@ -19,10 +19,11 @@ const startServer = async (): Promise<void> => {
   const app: Application = express();
 
   // middlewares
+  app.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
   app.use(cookieParser());
-  app.use(cors());
   app.use(express.json());
   app.use(express.urlencoded({ extended: false }));
+  // app.set('trust proxy', 1);
 
   if (process.env.NODE_ENV === 'development') {
     app.use(morgan('tiny'));

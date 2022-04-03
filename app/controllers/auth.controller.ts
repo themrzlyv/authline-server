@@ -109,16 +109,17 @@ export const loginUser = async (req: Request, res: Response, next: NextFunction)
     const accessToken = createAccessToken(user);
     const refreshToken = createRefreshToken(user);
 
-    res.cookie('omg', 'omg');
 
     res.cookie('refreshToken', refreshToken, {
       httpOnly: true,
-      path: '/',
+      // path: '/',
       // sameSite: 'none',
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7d
       // domain: process.env.NODE_ENV === 'development' ? 'localhost:4000' : '*.herokuapp.com',
       // secure: process.env.NODE_ENV === 'development' ? false : true,
     });
+
+    console.log(req.cookies)
 
     res.status(200).json({
       accessToken,
