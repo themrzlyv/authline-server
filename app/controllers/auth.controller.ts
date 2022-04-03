@@ -79,7 +79,7 @@ export const refreshToken = async (req: Request, res: Response, next: NextFuncti
     const { refreshToken } = req.cookies;
     if (!refreshToken) return next(ApiError.badRequest(401, 'Please login or register!'));
 
-    const { accessToken, error } = verifyRefreshToken(String(refreshToken));
+    const { accessToken, error } = verifyRefreshToken(refreshToken);
     if(error !== null) return next(ApiError.badRequest(401, 'Token is invalid or expired!'));
 
     return res.status(201).json({ accessToken });
