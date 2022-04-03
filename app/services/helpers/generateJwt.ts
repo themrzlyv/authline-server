@@ -18,7 +18,7 @@ export const verifyRefreshToken = (refreshToken: string) => {
   let accessToken: string | null = null;
   jwt.verify(
     refreshToken,
-    `${process.env.REFRESH_TOKEN_SECRET}`,
+    String(process.env.REFRESH_TOKEN_SECRET),
     (err: any, user: iUser | any) => {
       if (err) {
         error = 'Please login or register!';
