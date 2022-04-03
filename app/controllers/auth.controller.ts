@@ -79,7 +79,7 @@ export const refreshToken = async (req: Request, res: Response, next: NextFuncti
     const { refreshToken } = req.cookies;
     if (!refreshToken) return next(ApiError.badRequest(401, 'Please login or register!'));
 
-    const { accessToken, error } = verifyRefreshToken(refreshToken);
+    const { accessToken, error } = verifyRefreshToken(`${refreshToken}`);
     if(error) return next(ApiError.badRequest(401, 'Token is invalid or expired!'));
 
     return res.status(201).json({ accessToken });
@@ -143,6 +143,7 @@ export const loginUser = async (req: Request, res: Response, next: NextFunction)
 export const logoutUser = async (req: iReqAuth, res: Response, next: NextFunction) => {
   try {
     if (!req.user) return next(ApiError.badRequest(403, 'Invalid Authentication.'));
+    res.clearCookie('refreshToken');
     return res.status(200).json({ message: 'Logged out!' });
   } catch (error) {
     next(error);
