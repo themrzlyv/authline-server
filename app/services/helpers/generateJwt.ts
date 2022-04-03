@@ -14,9 +14,20 @@ export const createRefreshToken = (user: iUser) => {
 };
 
 export const verifyRefreshToken = (refreshToken: any) => {
-  return jwt.verify(refreshToken, `${process.env.REFRESH_TOKEN_SECRET}`, (error: any, user: iUser | any) => {
-    if (error) return 'Please login or register!';
-    const accesstoken = createAccessToken({ id: user.id });
-    return accesstoken;
-  });
+  let error: string | null = null;
+  let accessToken: string | null = null;
+  jwt.verify(
+    refreshToken,
+    `${process.env.REFRESH_TOKEN_SECRET}`,
+    (err: any, user: iUser | any) => {
+      if (err) {
+        error = 'Please login or register!';
+        return error;
+      }
+      accessToken = createAccessToken({ id: user.id });
+      return accessToken;
+    },
+  );
+
+  return { accessToken, error };
 };

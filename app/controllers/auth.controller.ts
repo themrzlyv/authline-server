@@ -61,8 +61,10 @@ export const registrationUser = async (req: Request, res: Response, next: NextFu
 
     res.cookie('refreshToken', refreshToken, {
       httpOnly: true,
-      path: '/v1/auth/refreshToken',
+      path: '/',
+      sameSite: process.env.NODE_ENV === 'development' ? false : 'none',
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7d
+      domain: process.env.NODE_ENV === 'development' ? 'localhost' : '*.herokuapp.com',
       secure: process.env.NODE_ENV === 'development' ? false : true,
     });
 
@@ -75,12 +77,12 @@ export const registrationUser = async (req: Request, res: Response, next: NextFu
 export const refreshToken = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { refreshToken } = req.cookies;
-    console.log(req.cookies);
-    if (!refreshToken) return res.status(400).json({ msg: 'Please Login or Register' });
+    if (!refreshToken) return next(ApiError.badRequest(401, 'Please login or register!'));
 
-    const accessToken = verifyRefreshToken(refreshToken);
+    const { accessToken, error } = verifyRefreshToken(refreshToken);
+    if(error) return next(ApiError.badRequest(401, 'Token is invalid or expired!'));
 
-    res.json({ accessToken });
+    return res.status(201).json({ accessToken });
   } catch (error) {
     next(error);
   }
@@ -109,13 +111,12 @@ export const loginUser = async (req: Request, res: Response, next: NextFunction)
     const accessToken = createAccessToken(user);
     const refreshToken = createRefreshToken(user);
 
-
     res.cookie('refreshToken', refreshToken, {
       httpOnly: true,
       path: '/',
       sameSite: process.env.NODE_ENV === 'development' ? false : 'none',
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7d
-      domain:  process.env.NODE_ENV === 'development' ? 'localhost' : '*.herokuapp.com',
+      domain: process.env.NODE_ENV === 'development' ? 'localhost' : '*.herokuapp.com',
       secure: process.env.NODE_ENV === 'development' ? false : true,
     });
 
