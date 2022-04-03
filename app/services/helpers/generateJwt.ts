@@ -13,7 +13,7 @@ export const createRefreshToken = (user: iUser) => {
   });
 };
 
-export const verifyRefreshToken = (refreshToken: any) => {
+export const verifyRefreshToken = (refreshToken: string) => {
   let error: string | null = null;
   let accessToken: string | null = null;
   jwt.verify(
