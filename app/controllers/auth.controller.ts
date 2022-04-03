@@ -113,10 +113,10 @@ export const loginUser = async (req: Request, res: Response, next: NextFunction)
     res.cookie('refreshToken', refreshToken, {
       httpOnly: true,
       // path: '/',
-      // sameSite: 'none',
+      sameSite: 'none',
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7d
-      domain: '*.herokuapp.com', //process.env.NODE_ENV === 'development' ? 'localhost:3000' : '*.herokuapp.com',
-      secure: true //process.env.NODE_ENV === 'development' ? false : true,
+      domain:  process.env.NODE_ENV === 'development' ? 'localhost:3000' : '*.herokuapp.com',
+      secure: process.env.NODE_ENV === 'development' ? false : true,
     });
 
     console.log(req.cookies)
