@@ -1,3 +1,4 @@
+import jwt from 'jsonwebtoken';
 import { prisma } from '@app/config/config';
 import ApiError from '@app/middlewares/ApiError';
 import { iReqAuth, iUser } from '@app/services/@types';
@@ -79,10 +80,17 @@ export const refreshToken = async (req: Request, res: Response, next: NextFuncti
     const refreshToken = req.cookies['refreshToken'];
     if (!refreshToken) return next(ApiError.badRequest(401, 'Please login or register!'));
 
-    const { accessToken, error } = verifyRefreshToken(String(refreshToken));
-    if(error) return next(ApiError.badRequest(401, error));
+    jwt.verify(refreshToken, String(process.env.REFRESH_TOKEN_SECRET), async (err: any, user: iUser | any) => {
+      if (err) return next(ApiError.badRequest(401, 'Please login or register!'));
 
-    return res.status(201).json({ accessToken });
+      const accessToken = createAccessToken(user);
+      return res.status(200).json({ accessToken });
+    });
+
+    // const { accessToken, error } = verifyRefreshToken(String(refreshToken));
+    // if (error) return next(ApiError.badRequest(401, error));
+
+    // return res.status(201).json({ accessToken });
   } catch (error) {
     next(error);
   }
