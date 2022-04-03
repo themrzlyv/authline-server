@@ -76,11 +76,11 @@ export const registrationUser = async (req: Request, res: Response, next: NextFu
 
 export const refreshToken = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { refreshToken } = req.cookies;
+    const refreshToken = req.cookies['refreshToken'];
     if (!refreshToken) return next(ApiError.badRequest(401, 'Please login or register!'));
 
     const { accessToken, error } = verifyRefreshToken(String(refreshToken));
-    if(error) return next(ApiError.badRequest(401, refreshToken));
+    if(error) return next(ApiError.badRequest(401, error));
 
     return res.status(201).json({ accessToken });
   } catch (error) {
