@@ -115,8 +115,8 @@ export const loginUser = async (req: Request, res: Response, next: NextFunction)
       // path: '/',
       // sameSite: 'none',
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7d
-      // domain: process.env.NODE_ENV === 'development' ? 'localhost:4000' : '*.herokuapp.com',
-      // secure: process.env.NODE_ENV === 'development' ? false : true,
+      domain: process.env.NODE_ENV === 'development' ? 'localhost:3000' : '*.herokuapp.com',
+      secure: process.env.NODE_ENV === 'development' ? false : true,
     });
 
     console.log(req.cookies)
