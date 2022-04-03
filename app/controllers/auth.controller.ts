@@ -75,12 +75,12 @@ export const registrationUser = async (req: Request, res: Response, next: NextFu
   }
 };
 
+const jwtSecret = String(process.env.REFRESH_TOKEN_SECRET);
+
 export const refreshToken = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const refreshToken = req.cookies['refreshToken'];
     if (!refreshToken) return next(ApiError.badRequest(401, 'Please login or register!'));
-
-    const jwtSecret = String(process.env.REFRESH_TOKEN_SECRET);
 
     jwt.verify(refreshToken, jwtSecret, (err: any, user: iUser | any) => {
       if (err) return next(ApiError.badRequest(401, err.message));
