@@ -8,7 +8,7 @@ import { prismaConnect } from './config/config';
 import mainRoutes from './routes/mainRoutes';
 import errorHandler from './middlewares/errorHandler';
 
-dotenv.config();
+dotenv.config({ path: './.env'});
 
 // prisma connection
 prismaConnect()
@@ -29,7 +29,7 @@ const startServer = async (): Promise<void> => {
   );
   app.use(cookieParser());
   app.use(express.json());
-  app.use(express.urlencoded({ extended: false }));
+  app.use(express.urlencoded({ extended: true }));
 
   if (process.env.NODE_ENV === 'development') {
     app.use(morgan('tiny'));
