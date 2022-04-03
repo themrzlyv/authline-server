@@ -80,7 +80,7 @@ export const refreshToken = async (req: Request, res: Response, next: NextFuncti
     if (!refreshToken) return next(ApiError.badRequest(401, 'Please login or register!'));
 
     const { accessToken, error } = verifyRefreshToken(`${refreshToken}`);
-    if(error) return next(ApiError.badRequest(401, 'Token is invalid or expired!'));
+    if(error !== null) return next(ApiError.badRequest(401, 'Token is invalid or expired!'));
 
     return res.status(201).json({ accessToken });
   } catch (error) {
