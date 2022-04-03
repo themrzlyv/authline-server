@@ -2,13 +2,12 @@ import jwt, { JsonWebTokenError } from 'jsonwebtoken';
 import { iUser } from '@app/services/@types';
 
 export const createAccessToken = (user: iUser) => {
-  return jwt.sign({ id: user.id, role: user.role }, String(process.env.ACCESS_TOKEN_SECRET), {
+  return jwt.sign({ id: user.id, role: user.role }, `${process.env.ACCESS_TOKEN_SECRET}`, {
     expiresIn: '10m',
   });
 };
 
 export const createRefreshToken = (user: iUser) => {
-  console.log('crtrf',process.env.REFRESH_TOKEN_SECRET);
   return jwt.sign({ id: user.id, role: user.role }, `${process.env.REFRESH_TOKEN_SECRET}`, {
     expiresIn: '7d',
   });
