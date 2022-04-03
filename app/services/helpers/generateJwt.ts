@@ -8,7 +8,8 @@ export const createAccessToken = (user: iUser) => {
 };
 
 export const createRefreshToken = (user: iUser) => {
-  return jwt.sign({ id: user.id, role: user.role }, String(process.env.REFRESH_TOKEN_SECRET), {
+  console.log('crtrf',process.env.REFRESH_TOKEN_SECRET);
+  return jwt.sign({ id: user.id, role: user.role }, `${process.env.REFRESH_TOKEN_SECRET}`, {
     expiresIn: '7d',
   });
 };
