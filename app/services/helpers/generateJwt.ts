@@ -21,7 +21,7 @@ export const verifyRefreshToken = (refreshToken: string) => {
     String(process.env.REFRESH_TOKEN_SECRET),
     (err: any, user: iUser | any) => {
       if (err) {
-        error = 'Please login or register!';
+        error = 'Token is invalid or expired!';
         return error;
       }
       accessToken = createAccessToken({ id: user.id });
