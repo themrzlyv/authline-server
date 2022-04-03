@@ -69,8 +69,6 @@ export const registrationUser = async (req: Request, res: Response, next: NextFu
       secure: process.env.NODE_ENV === 'development' ? false : true,
     });
 
-    console.log(req.cookies.refreshToken);
-
     return res.status(201).json({ accessToken, user });
   } catch (error) {
     next(error);
@@ -80,10 +78,11 @@ export const registrationUser = async (req: Request, res: Response, next: NextFu
 export const refreshToken = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const refreshToken = req.cookies['refreshToken'];
-    console.log(refreshToken);
     if (!refreshToken) return next(ApiError.badRequest(401, 'Please login or register!'));
 
-    jwt.verify(refreshToken, `${process.env.REFRESH_TOKEN_SECRET}`, (err: any, user: iUser | any) => {
+    const jwtSecret = String(process.env.REFRESH_TOKEN_SECRET);
+
+    jwt.verify(refreshToken, jwtSecret, (err: any, user: iUser | any) => {
       if (err) return next(ApiError.badRequest(401, err.message));
 
       const accessToken = createAccessToken(user);
