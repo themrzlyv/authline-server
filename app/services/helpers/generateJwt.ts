@@ -1,4 +1,4 @@
-import jwt from 'jsonwebtoken';
+import jwt, { JsonWebTokenError } from 'jsonwebtoken';
 import { iUser } from '@app/services/@types';
 
 export const createAccessToken = (user: iUser) => {
@@ -19,10 +19,9 @@ export const verifyRefreshToken = (refreshToken: string) => {
   jwt.verify(
     refreshToken,
     String(process.env.REFRESH_TOKEN_SECRET),
-    (err: any, user: iUser | any) => {
+    (err: JsonWebTokenError | any, user: iUser | any) => {
       if (err) {
-        // error = 'Token is invalid or expired!';
-        error = err;
+        error = err.message;
         return error;
       }
       accessToken = createAccessToken({ id: user.id });
