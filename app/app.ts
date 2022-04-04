@@ -24,8 +24,8 @@ const startServer = async (): Promise<void> => {
   app.use(
     cors({
       credentials: true,
-      methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-      allowedHeaders: ['Content-Type', 'Authorization'],
+      methods: ['GET', 'POST', 'PUT', 'DELETE'],
+      allowedHeaders: ['Content-Type', 'Authorization', 'Origin', 'X-Requested-With', 'Accept'],
       origin: ['http://localhost:3000', 'https://authline.herokuapp.com'],
     }),
   );
