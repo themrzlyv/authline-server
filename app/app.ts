@@ -24,10 +24,12 @@ const startServer = async (): Promise<void> => {
   app.use(
     cors({
       credentials: true,
+      methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+      allowedHeaders: ['Content-Type', 'Authorization'],
       origin: ['http://localhost:3000', 'https://authline.herokuapp.com'],
     }),
   );
-  app.use(cookieParser());
+  app.use(cookieParser("secret"));
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
 
