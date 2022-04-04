@@ -65,7 +65,7 @@ export const registrationUser = async (req: Request, res: Response, next: NextFu
       path: '/',
       sameSite: process.env.NODE_ENV === 'development' ? false : 'none',
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7d
-      domain: process.env.NODE_ENV === 'development' ? 'localhost' : undefined,
+      domain: process.env.NODE_ENV === 'development' ? 'localhost' : '*.herokuapp.com',
       secure: process.env.NODE_ENV === 'development' ? false : true,
     });
 

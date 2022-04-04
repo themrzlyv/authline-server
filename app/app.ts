@@ -36,6 +36,13 @@ const startServer = async (): Promise<void> => {
     console.log('Morgan logger is activated');
   }
 
+  app.all('*', function (req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin', process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://authline.herokuapp.com');
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With');
+    res.setHeader('Access-Control-Allow-Credentials', "true");
+    next();
+  });
+
   // routes
   app.use('/v1', mainRoutes);
 
