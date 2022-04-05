@@ -1,12 +1,7 @@
-import jwt from 'jsonwebtoken';
 import { prisma } from '@app/config/config';
 import ApiError from '@app/middlewares/ApiError';
 import { iReqAuth, iUser } from '@app/services/@types';
-import {
-  createAccessToken,
-  createRefreshToken,
-  verifyRefreshToken,
-} from '@app/services/helpers/generateJwt';
+import { generateJWT, verifyRefreshToken } from '@app/services/helpers/generateJwt';
 import { loginValidator, regValidator } from '@app/services/helpers/validator';
 import bcrypt from 'bcrypt';
 import { NextFunction, Request, Response } from 'express';
@@ -57,8 +52,17 @@ export const registrationUser = async (req: Request, res: Response, next: NextFu
     });
     if (!user) return next(ApiError.badRequest(400, 'Something went wrong!'));
 
-    const accessToken = createAccessToken(user);
-    const refreshToken = createRefreshToken(user);
+    const accessToken = generateJWT({
+      user,
+      secret: process.env.ACCESS_TOKEN_SECRET as string,
+      expiresIn: '10m',
+    });
+
+    const refreshToken = generateJWT({
+      user,
+      secret: process.env.REFRESH_TOKEN_SECRET as string,
+      expiresIn: '7d',
+    });
 
     res.cookie('refreshToken', refreshToken, {
       httpOnly: true,
@@ -78,20 +82,12 @@ export const registrationUser = async (req: Request, res: Response, next: NextFu
 export const refreshToken = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const refreshToken = req.cookies['refreshToken'];
-    console.log(refreshToken);
     if (!refreshToken) return next(ApiError.badRequest(401, 'Please login or register!'));
 
-    jwt.verify(refreshToken, String(process.env.REFRESH_TOKEN_SECRET), (err: any, user: iUser | any) => {
-      if (err) return next(ApiError.badRequest(401, err.message));
+    const { accessToken, error } = verifyRefreshToken(String(refreshToken));
+    if (error) return next(ApiError.badRequest(401, error));
 
-      const accessToken = createAccessToken(user);
-      return res.status(200).json({ accessToken });
-    });
-
-    // const { accessToken, error } = verifyRefreshToken(String(refreshToken));
-    // if (error) return next(ApiError.badRequest(401, error));
-
-    // return res.status(201).json({ accessToken });
+    return res.status(201).json({ accessToken });
   } catch (error) {
     next(error);
   }
@@ -117,8 +113,17 @@ export const loginUser = async (req: Request, res: Response, next: NextFunction)
     const isMatch: boolean = await bcrypt.compare(password, user.password);
     if (!isMatch) return next(ApiError.badRequest(400, 'Password is not valid'));
 
-    const accessToken = createAccessToken(user);
-    const refreshToken = createRefreshToken(user);
+    const accessToken = generateJWT({
+      user,
+      secret: process.env.ACCESS_TOKEN_SECRET as string,
+      expiresIn: '10m',
+    });
+
+    const refreshToken = generateJWT({
+      user,
+      secret: process.env.REFRESH_TOKEN_SECRET as string,
+      expiresIn: '7d',
+    });
 
     res.cookie('refreshToken', refreshToken, {
       httpOnly: true,

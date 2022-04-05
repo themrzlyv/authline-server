@@ -1,16 +1,14 @@
 import jwt, { JsonWebTokenError } from 'jsonwebtoken';
 import { iUser } from '@app/services/@types';
 
-export const createAccessToken = (user: iUser) => {
-  return jwt.sign({ id: user.id, role: user.role }, `${process.env.ACCESS_TOKEN_SECRET}`, {
-    expiresIn: '10m',
-  });
-};
+interface iGenerateJwtParams {
+  user: iUser;
+  secret: jwt.Secret;
+  expiresIn: string;
+}
 
-export const createRefreshToken = (user: iUser) => {
-  return jwt.sign({ id: user.id, role: user.role }, `${process.env.REFRESH_TOKEN_SECRET}`, {
-    expiresIn: '7777d',
-  });
+export const generateJWT = ({ user, secret, expiresIn }: iGenerateJwtParams): string => {
+  return jwt.sign({ id: user.id, role: user.role }, String(secret), { expiresIn });
 };
 
 export const verifyRefreshToken = (refreshToken: string) => {
@@ -24,7 +22,11 @@ export const verifyRefreshToken = (refreshToken: string) => {
         error = err.message;
         return error;
       }
-      accessToken = createAccessToken({ id: user.id });
+      accessToken = generateJWT({
+        user,
+        secret: process.env.ACCESS_TOKEN_SECRET as string,
+        expiresIn: '10m',
+      });
       return accessToken;
     },
   );

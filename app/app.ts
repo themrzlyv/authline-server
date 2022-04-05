@@ -19,12 +19,11 @@ const startServer = async (): Promise<void> => {
   const app: Application = express();
   app.set('trust proxy', 1);
 
-
   // middlewares
   app.use(
     cors({
       credentials: true,
-      exposedHeaders: ["set-cookie"],
+      exposedHeaders: ['set-cookie'],
       origin: ['http://localhost:3000', 'https://authline.herokuapp.com'],
     }),
   );
@@ -38,8 +37,13 @@ const startServer = async (): Promise<void> => {
   }
 
   app.all('*', (req, res, next) => {
-    res.header('Access-Control-Allow-Origin', 'https://authline.herokuapp.com');
-    res.header('Access-Control-Allow-Credentials', 'true')
+    res.header(
+      'Access-Control-Allow-Origin',
+      process.env.NODE_ENV === 'development'
+        ? 'http://localhost:3000'
+        : 'https://authline.herokuapp.com',
+    );
+    res.header('Access-Control-Allow-Credentials', 'true');
     next();
   });
 
