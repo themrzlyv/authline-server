@@ -8,7 +8,7 @@ import { prismaConnect } from './config/config';
 import mainRoutes from './routes/mainRoutes';
 import errorHandler from './middlewares/errorHandler';
 
-dotenv.config({ path: './.env'});
+dotenv.config();
 
 // prisma connection
 prismaConnect()
