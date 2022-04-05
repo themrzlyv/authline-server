@@ -19,7 +19,7 @@ export const verifyRefreshToken = (refreshToken: string) => {
     String(process.env.REFRESH_TOKEN_SECRET),
     (err: JsonWebTokenError | any, user: iUser | any) => {
       if (err) {
-        error = err.message;
+        error = 'Invalid token!';
         return error;
       }
       accessToken = generateJWT({
