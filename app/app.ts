@@ -24,6 +24,7 @@ const startServer = async (): Promise<void> => {
   app.use(
     cors({
       credentials: true,
+      exposedHeaders: ["set-cookie"],
       origin: ['http://localhost:3000', 'https://authline.herokuapp.com'],
     }),
   );
