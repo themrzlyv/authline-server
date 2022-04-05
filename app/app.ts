@@ -36,6 +36,12 @@ const startServer = async (): Promise<void> => {
     console.log('Morgan logger is activated');
   }
 
+  app.all('*', (req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Credentials', 'true')
+    next();
+  });
+
   // routes
   app.use('/v1', mainRoutes);
 
