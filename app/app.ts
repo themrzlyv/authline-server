@@ -24,12 +24,10 @@ const startServer = async (): Promise<void> => {
   app.use(
     cors({
       credentials: true,
-      methods: ['GET', 'POST', 'PUT', 'DELETE'],
-      // allowedHeaders: ['Content-Type', 'Authorization', 'Origin', 'X-Requested-With', 'Accept'],
       origin: ['http://localhost:3000', 'https://authline.herokuapp.com'],
     }),
   );
-  app.use(cookieParser("secret"));
+  app.use(cookieParser());
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
 
@@ -37,13 +35,6 @@ const startServer = async (): Promise<void> => {
     app.use(morgan('tiny'));
     console.log('Morgan logger is activated');
   }
-
-  app.all('*', function (req, res, next) {
-    res.setHeader('Access-Control-Allow-Origin', process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://authline.herokuapp.com');
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With');
-    res.setHeader('Access-Control-Allow-Credentials', "true");
-    next();
-  });
 
   // routes
   app.use('/v1', mainRoutes);
