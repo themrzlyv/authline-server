@@ -37,7 +37,7 @@ const startServer = async (): Promise<void> => {
   }
 
   app.all('*', (req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Origin', 'https://authline.herokuapp.com');
     res.header('Access-Control-Allow-Credentials', 'true')
     next();
   });
