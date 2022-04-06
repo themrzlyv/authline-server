@@ -31,6 +31,7 @@ export const accessUser = async (req: iReqAuth, res: Response, next: NextFunctio
       city: user.city,
       number: user.number,
       birthday: user.birthday,
+      photo: user.photo,
       posts: user.posts,
       role: user.role,
       createdAt: user.createdAt,

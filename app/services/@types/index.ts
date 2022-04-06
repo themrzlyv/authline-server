@@ -54,6 +54,7 @@ export interface iUser {
   city?: string;
   number?: string;
   birthday?: string;
+  photo?: string;
   posts?: iPost[];
   role?: 'User' | 'Admin';
   createdAt?: Date;
